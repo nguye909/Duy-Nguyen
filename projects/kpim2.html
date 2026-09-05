@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KPIM Capstone — Xmas Gift Sales SQL Analysis | Duy Nguyen</title>
+  <link rel="stylesheet" href="../style.css">
+  <style>
+    .code-evidence{margin-top:26px;background:#fff;border:1px solid var(--border);border-radius:16px;overflow:hidden;box-shadow:var(--shadow)}
+    .code-evidence pre{margin:0;padding:24px;overflow:auto;background:#2f2a27;color:#f4efeb;font:13px/1.65 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;white-space:pre}
+    .code-caption{padding:16px 18px;color:var(--muted);font-size:13px;border-top:1px solid var(--border)}
+    .analysis-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:20px}
+    .analysis-card{padding:22px;background:#fff;border:1px solid var(--border);border-radius:14px}
+    .analysis-card h3{margin-bottom:8px;font-size:18px}
+    @media(max-width:850px){.analysis-grid{grid-template-columns:1fr}}
+  </style>
+</head>
+<body class="project-page">
+  <div class="project-nav"><div class="container"><a class="back-link" href="../index.html#projects">← Back to Portfolio</a></div></div>
+
+  <header class="project-hero">
+    <div class="container">
+      <p class="section-label">SQL Server · Data Cleaning · Sales Analytics · Capstone</p>
+      <h1>KPIM Capstone — Xmas Gift Sales SQL Analysis</h1>
+      <p class="project-subtitle">An end-to-end SQL Server capstone that transforms raw Christmas retail transactions into a reusable analytical layer and evaluates seasonal growth, profitability, customers, products, geography, purchase behavior, and shopping-time patterns.</p>
+      <div class="metric-grid">
+        <div class="metric"><strong>19</strong><span>Source Fields</span></div>
+        <div class="metric"><strong>23</strong><span>SQL Analysis Sections</span></div>
+        <div class="metric"><strong>10+</strong><span>Business Dimensions</span></div>
+        <div class="metric"><strong>1</strong><span>Reusable Clean View</span></div>
+      </div>
+    </div>
+  </header>
+
+  <section class="project-section">
+    <div class="container"><div class="two-col">
+      <div class="info-card">
+        <p class="section-label">The Problem &amp; Context</p>
+        <h2>What business questions needed to be answered?</h2>
+        <p>The capstone focused on understanding Christmas-season retail performance from transaction-level data. The analysis needed to show how revenue, quantity, cost, profit, and margin changed by season and month, then explain performance through customer, product, location, purchase, payment, budget, weekday, and hour-of-day patterns.</p>
+      </div>
+      <div class="info-card">
+        <p class="section-label">My Role</p>
+        <h2>What I owned</h2>
+        <p>I developed the SQL workflow from source inspection through final analysis. I standardized the raw schema, corrected the customer-age field, converted time values safely, created Christmas-season logic, excluded an incomplete season, calculated reusable KPIs and growth measures, and built business queries across the major analytical dimensions.</p>
+      </div>
+    </div></div>
+  </section>
+
+  <section class="project-section">
+    <div class="container">
+      <p class="section-label">Methodology</p>
+      <h2>How I approached the analysis</h2>
+      <div class="process-grid">
+        <div class="process-card"><div class="step">STEP 01</div><h3>Inspect &amp; standardize the source</h3><p>Review source tables and fields, correct naming issues, safely convert time data, define seasonal date logic, and create an analysis-ready SQL layer.</p></div>
+        <div class="process-card"><div class="step">STEP 02</div><h3>Build reusable KPIs &amp; growth logic</h3><p>Calculate sales, quantity, cost, profit, profit margin, seasonal performance, year-over-year growth, monthly performance, and month-over-month change.</p></div>
+        <div class="process-card"><div class="step">STEP 03</div><h3>Explain the business drivers</h3><p>Break performance down by geography, age, gender, products, purchase type, payment method, Christmas budget, weekday, hour, and ranked products.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="project-section">
+    <div class="container">
+      <p class="section-label">SQL Evidence</p>
+      <h2>How the raw data became analysis-ready</h2>
+      <div class="code-evidence"><pre>;WITH xmas_sales AS
+(
+    SELECT
+        CASE
+            WHEN MONTH([date]) = 1
+                THEN YEAR([date]) - 1
+            ELSE YEAR([date])
+        END AS xmas_year,
+
+        CASE
+            WHEN MONTH([date]) = 1
+                THEN CONCAT(YEAR([date]) - 1, '-', YEAR([date]))
+            ELSE CONCAT(YEAR([date]), '-', YEAR([date]) + 1)
+        END AS xmas_season,
+
+        YEAR([date]) AS [year],
+        EOMONTH([date]) AS end_date_of_month,
+        DATEPART(WEEKDAY, [date]) AS [weekday],
+
+        CASE DATEPART(WEEKDAY, [date])
+            WHEN 1 THEN 'Sunday'
+            WHEN 2 THEN 'Monday'
+            WHEN 3 THEN 'Tuesday'
+            WHEN 4 THEN 'Wednesday'
+            WHEN 5 THEN 'Thursday'
+            WHEN 6 THEN 'Friday'
+            WHEN 7 THEN 'Saturday'
+        END AS weekday_name,
+
+        DATEPART(HOUR, [time]) AS [hour],
+        *
+
+    FROM dbo.xmas_sales
+    WHERE EOMONTH([date]) <> '2018-01-31'
+)</pre><div class="code-caption">Analysis preparation · Created Christmas-season and time dimensions while excluding the incomplete 2017–18 season to support consistent sales analysis.</div></div>
+    </div>
+  </section>
+
+  <section class="project-section">
+    <div class="container">
+      <p class="section-label">Analysis Coverage</p>
+      <h2>What the SQL investigates</h2>
+      <div class="analysis-grid">
+        <div class="analysis-card"><h3>Performance &amp; Growth</h3><p>Overall KPIs, Christmas-season results, year-over-year growth, monthly trends, and month-over-month growth.</p></div>
+        <div class="analysis-card"><h3>Customers &amp; Behavior</h3><p>Customer age range, gender, Christmas budget, purchase type, payment method, weekday, and shopping hour.</p></div>
+        <div class="analysis-card"><h3>Products &amp; Geography</h3><p>Country, city, product category, individual products, top-10 revenue products, and top-10 profit products.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="project-section">
+    <div class="container">
+      <p class="section-label">Analytical Techniques</p>
+      <h2>SQL concepts demonstrated</h2>
+      <div class="two-col">
+        <div class="info-card"><h3>Reusable transformation logic</h3><p>Used a cleaned view, <code>CASE</code>, <code>TRY_CONVERT</code>, date functions, aliases, filtering, aggregation, and derived profit-margin logic to make the raw transactional table consistent for downstream analysis.</p></div>
+        <div class="info-card"><h3>Business-oriented analysis</h3><p>Used grouped aggregations, ranked <code>TOP</code> queries, seasonal comparisons, and growth calculations to translate transaction data into questions a retail manager could act on.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="project-section">
+    <div class="container">
+      <p class="section-label">Example Business Queries</p>
+      <h2>From raw transactions to decision-ready outputs</h2>
+      <div class="finding"><div class="finding-number">Analysis 01</div><h3>Compare Christmas seasons, not just calendar years</h3><p>The project assigns January transactions to the preceding Christmas season, allowing November, December, and January activity to be evaluated as one retail season instead of splitting the business event across calendar years.</p></div>
+      <div class="finding"><div class="finding-number">Analysis 02</div><h3>Separate revenue growth from profitability</h3><p>The SQL tracks sales, quantity, cost, profit, and profit margin so higher revenue can be evaluated alongside whether the business actually generated better economic performance.</p></div>
+      <div class="finding"><div class="finding-number">Analysis 03</div><h3>Identify where and when performance is generated</h3><p>Location, customer, product, purchase, payment, weekday, and hourly queries make it possible to identify which segments and shopping periods drive the strongest results.</p></div>
+    </div>
+  </section>
+
+  <section class="project-section">
+    <div class="container"><div class="two-col">
+      <div class="info-card">
+        <p class="section-label">Business Value</p>
+        <h2>How the analysis supports decisions</h2>
+        <p>The SQL workflow creates a consistent analytical foundation for answering seasonal retail questions: which products and markets contribute the most, whether growth is profitable, which customer groups matter, and when customers are most active. The reusable clean view also reduces the need to repeat transformation logic across every query.</p>
+      </div>
+      <div class="outcome-box">
+        <p class="section-label">Outcome / Achievement</p>
+        <h2>What the capstone produced</h2>
+        <p>Completed a structured SQL Server capstone with 23 analysis sections covering data preparation, reusable transformation logic, KPI development, seasonal and monthly growth, profitability, segmentation, geographic analysis, product ranking, and customer-purchase behavior.</p>
+      </div>
+    </div></div>
+  </section>
+
+  <section class="project-section">
+    <div class="container">
+      <p class="section-label">Supporting File</p>
+      <h2>Review the SQL project</h2>
+      <p>The complete SQL script is available for a deeper review of the transformation logic and business-analysis queries.</p>
+      <div class="project-actions">
+        <a class="button button-primary" href="../sql/Capstone_project_Duy_Nguyen.sql" target="_blank">Open SQL Script</a>
+        <a class="button button-secondary" href="../index.html#projects">Back to Projects</a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer"><div class="container"><p>© 2026 Duy Nguyen · Finance &amp; Business Analytics Portfolio</p></div></footer>
+</body>
+</html>
