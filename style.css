@@ -178,3 +178,34 @@ h3{line-height:1.3}
     border-radius:16px;
     box-shadow:var(--shadow);
 }
+
+
+/* Fieldpiece - In Progress */
+
+.project-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.progress-badge {
+  display: inline-block;
+  background: #fff0d6;
+  color: #a65d13;
+  border: 1px solid #efc78f;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  white-space: nowrap;
+}
+
+.project-in-progress {
+  border: 1px solid #efc78f;
+}
+
+.project-in-progress h3 {
+  cursor: default;
+}
