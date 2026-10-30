@@ -1,160 +1,513 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="KPIM Retail Sales Performance Analytics — Power BI project covering revenue, sales targets, customer RFM segmentation, and order analysis.">
   <title>KPIM Retail Sales Performance Analytics | Duy Nguyen</title>
   <link rel="stylesheet" href="../style.css">
+
   <style>
-    .powerbi-wrap{margin-top:26px;background:#fff;border:1px solid var(--border);border-radius:16px;overflow:hidden;box-shadow:var(--shadow)}
-    .powerbi-wrap iframe{display:block;width:100%;height:700px;border:0;background:#fff}
-    @media(max-width:850px){.powerbi-wrap iframe{height:560px}}
-    @media(max-width:500px){.powerbi-wrap iframe{height:420px}}
+    .powerbi-wrap {
+      margin-top: 26px;
+      background: #fff;
+      border: 1px solid var(--border, #dedbd6);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: var(--shadow, 0 8px 28px rgba(0,0,0,.07));
+    }
+
+    .powerbi-wrap iframe {
+      display: block;
+      width: 100%;
+      height: 700px;
+      border: 0;
+      background: #fff;
+    }
+
+    .dashboard-detail-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+      margin-top: 24px;
+    }
+
+    .dashboard-detail-card {
+      padding: 26px;
+      background: #fff;
+      border: 1px solid var(--border, #dedbd6);
+      border-radius: 14px;
+    }
+
+    .dashboard-detail-card h3 {
+      margin: 8px 0 12px;
+    }
+
+    .dashboard-detail-card p {
+      margin: 0 0 12px;
+      line-height: 1.7;
+    }
+
+    .dashboard-detail-card p:last-child {
+      margin-bottom: 0;
+    }
+
+    .dashboard-detail-card .detail-number {
+      font-size: .74rem;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: #b57346;
+    }
+
+    .project-scope-note {
+      margin-top: 16px;
+      font-size: .92rem;
+      line-height: 1.65;
+      opacity: .8;
+    }
+
+    @media (max-width: 850px) {
+      .powerbi-wrap iframe {
+        height: 560px;
+      }
+
+      .dashboard-detail-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 500px) {
+      .powerbi-wrap iframe {
+        height: 420px;
+      }
+
+      .dashboard-detail-card {
+        padding: 20px;
+      }
+    }
   </style>
 </head>
+
 <body class="project-page">
+
+  <!-- NAVIGATION -->
   <div class="project-nav">
     <div class="container">
-      <a class="back-link" href="../index.html#projects">← Back to Portfolio</a>
+      <a class="back-link" href="../index.html#projects">
+        ← Back to Portfolio
+      </a>
     </div>
   </div>
 
+  <!-- PROJECT HERO -->
   <header class="project-hero">
     <div class="container">
-      <p class="section-label">Power BI · Sales Analytics · Business Intelligence</p>
+
+      <p class="section-label">
+        Power BI · Retail Analytics · Business Intelligence
+      </p>
+
       <h1>KPIM Retail Sales Performance Analytics</h1>
-      <p class="project-subtitle">An end-to-end retail analytics project using Power BI to track revenue, target attainment, sales trends, store and district performance, product mix, and manager results.</p>
+
+      <p class="project-subtitle">
+        An interactive Power BI project connecting sales performance,
+        revenue targets, customer behavior, and order fulfillment
+        to support retail management decisions.
+      </p>
 
       <div class="metric-grid">
-        <div class="metric"><strong>18bn</strong><span>Total Revenue</span></div>
-        <div class="metric"><strong>27K</strong><span>Orders</span></div>
-        <div class="metric"><strong>18K</strong><span>Customers</span></div>
-        <div class="metric"><strong>69K</strong><span>Products Sold</span></div>
+        <div class="metric">
+          <strong>18bn</strong>
+          <span>Total Revenue (VND)</span>
+        </div>
+
+        <div class="metric">
+          <strong>27K</strong>
+          <span>Orders</span>
+        </div>
+
+        <div class="metric">
+          <strong>18K</strong>
+          <span>Customers</span>
+        </div>
+
+        <div class="metric">
+          <strong>69K</strong>
+          <span>Products Sold</span>
+        </div>
       </div>
+
+      <p class="project-scope-note">
+        Headline figures reflect the unfiltered Revenue Analysis
+        view across 2020–2022; values change with report filters.
+      </p>
+
     </div>
   </header>
 
+  <!-- PROBLEM AND ROLE -->
   <section class="project-section">
     <div class="container">
       <div class="two-col">
+
         <div class="info-card">
           <p class="section-label">The Problem &amp; Context</p>
           <h2>What decision needed to be made?</h2>
-          <p>The project focused on turning detailed retail transaction data into a management view that could quickly answer where revenue was coming from, whether sales targets were being achieved, which districts and stores were outperforming, and how product mix and promotions affected performance.</p>
+
+          <p>
+            Retail transaction data can show what was sold without
+            clearly explaining why performance differs across stores,
+            districts, products, or customer groups. This project
+            brought those views together to answer which areas
+            contribute the most revenue, whether targets are being
+            met, where customer retention might need attention,
+            and how orders progress from placement to shipment
+            and payment.
+          </p>
         </div>
+
         <div class="info-card">
           <p class="section-label">My Role</p>
           <h2>What I owned</h2>
-          <p>I built the Power BI report from the analytical model through the final dashboard experience. I organized business KPIs, created time and category filters, designed performance views for managers, districts, stores, and products, and structured the report so users could move from executive-level KPIs to more detailed operating results.</p>
+
+          <p>
+            I developed the Power BI reporting experience using
+            Power Query, a relational data model, and DAX measures.
+            I built KPI definitions, revenue and target comparisons,
+            time-based performance analysis, RFM customer scores,
+            and order tracking views. I also designed slicers and
+            bookmark navigation so viewers could move between
+            summary metrics and operational details.
+          </p>
         </div>
+
       </div>
     </div>
   </section>
 
+  <!-- METHODOLOGY -->
   <section class="project-section">
     <div class="container">
+
       <p class="section-label">Methodology</p>
       <h2>How I approached the analysis</h2>
+
       <div class="process-grid">
+
         <div class="process-card">
           <div class="step">STEP 01</div>
-          <h3>Define the performance KPIs</h3>
-          <p>Structure revenue, orders, customers, products sold, target revenue, target-achievement percentage, and year-over-year growth into decision-ready measures.</p>
+          <h3>Prepare the model and define KPIs</h3>
+
+          <p>
+            Worked with sales transactions and related customer,
+            product, store, promotion, calendar, and sales-plan
+            tables. Created reusable DAX for revenue, distinct
+            orders, sales targets, year-over-year growth,
+            and order performance.
+          </p>
         </div>
+
         <div class="process-card">
           <div class="step">STEP 02</div>
-          <h3>Analyze performance drivers</h3>
-          <p>Break results down by month, manager, district, store, product category, product group, loyalty group, and promotion to identify the strongest and weakest contributors.</p>
+          <h3>Analyze drivers and customer behavior</h3>
+
+          <p>
+            Compared performance by location, manager, product,
+            promotion, and reporting period. Used recency,
+            frequency, and monetary scores to classify customer
+            behavior and explore segments alongside demographic
+            characteristics.
+          </p>
         </div>
+
         <div class="process-card">
           <div class="step">STEP 03</div>
-          <h3>Build an interactive report</h3>
-          <p>Combine KPI cards, trend charts, ranked comparisons, matrices, and slicers so users can explore performance at both executive and operating levels.</p>
+          <h3>Build interactive report views</h3>
+
+          <p>
+            Organized four report pages with KPI cards, trends,
+            matrices, decomposition analysis, and bookmark-controlled
+            chart switching for executive summaries and more
+            detailed investigation.
+          </p>
         </div>
+
       </div>
     </div>
   </section>
 
+  <!-- DASHBOARD BREAKDOWN -->
   <section class="project-section">
     <div class="container">
-      <p class="section-label">Dashboard Evidence</p>
-      <h2>What the Power BI report shows</h2>
 
-      <div class="evidence">
-        <a href="../assets/kpim_sales_performance.png" target="_blank">
-          <img src="../assets/kpim_sales_performance.png" alt="KPIM sales performance dashboard showing revenue, targets, manager performance, district performance and store target achievement">
-        </a>
-        <div class="evidence-caption">Sales Performance dashboard · Revenue and YTD target attainment, monthly trend, manager and district comparisons, and store-level target achievement.</div>
-      </div>
+      <p class="section-label">Dashboard Breakdown</p>
+      <h2>What the four Power BI views analyze</h2>
 
-      <div class="evidence">
-        <a href="../assets/kpim_analysis_report.png" target="_blank">
-          <img src="../assets/kpim_analysis_report.png" alt="KPIM analysis dashboard showing revenue, orders, customers, products sold, district and product mix and year-over-year growth">
-        </a>
-        <div class="evidence-caption">Analysis Report · Executive KPIs with district, store, product-category, product-group, manager, and product-level performance views.</div>
+      <p>
+        Rather than treating revenue as a single KPI, the report
+        links financial results to customer segments and the
+        underlying order process.
+      </p>
+
+      <div class="dashboard-detail-grid">
+
+        <!-- REVENUE ANALYSIS -->
+        <article class="dashboard-detail-card">
+          <div class="detail-number">
+            01 / Revenue Analysis
+          </div>
+
+          <h3>Where revenue comes from</h3>
+
+          <p>
+            The executive view summarizes revenue, orders,
+            customers, and units sold across the reporting period.
+            District and store comparisons highlight geographic
+            contributions, while product-category and product-group
+            charts show the composition of sales.
+          </p>
+
+          <p>
+            Yearly revenue trends and manager/product drilldowns
+            help distinguish overall growth from performance
+            concentrated in specific locations or categories.
+          </p>
+        </article>
+
+        <!-- SALES PERFORMANCE -->
+        <article class="dashboard-detail-card">
+          <div class="detail-number">
+            02 / Sales Performance
+          </div>
+
+          <h3>Actual results versus plan</h3>
+
+          <p>
+            Monthly and year-to-date KPIs compare realized revenue
+            with sales targets. Trend charts place actual revenue
+            alongside target and prior-year results; manager and
+            district comparisons identify where the largest gaps
+            occur.
+          </p>
+
+          <p>
+            A store-by-month matrix supports follow-up on target
+            attainment rather than relying only on company-wide
+            performance.
+          </p>
+        </article>
+
+        <!-- CUSTOMER ANALYSIS -->
+        <article class="dashboard-detail-card">
+          <div class="detail-number">
+            03 / Customer Analysis
+          </div>
+
+          <h3>RFM segmentation and customer behavior</h3>
+
+          <p>
+            Customer recency, purchase frequency, and monetary
+            value are scored and combined into RFM segments.
+            The view compares customer groups and explores
+            demographics such as income and age through a
+            decomposition tree.
+          </p>
+
+          <p>
+            Customer-level details provide last-purchase date,
+            purchase count, average purchase value, and total
+            spend to support more targeted analysis.
+          </p>
+        </article>
+
+        <!-- ORDER ANALYSIS -->
+        <article class="dashboard-detail-card">
+          <div class="detail-number">
+            04 / Order Analysis
+          </div>
+
+          <h3>From order placement to payment</h3>
+
+          <p>
+            The order view brings together order volume, units
+            per order, average order value, and shipping/payment
+            indicators. Bookmark buttons switch the trend analysis
+            between order quantity, paid orders, outstanding orders,
+            and order value.
+          </p>
+
+          <p>
+            Manager and product-category breakdowns help reveal
+            where orders remain unshipped or shipped but unpaid.
+            Payment dates are used as a completion proxy because
+            no separate fulfillment-confirmation field is shown
+            in the source data.
+          </p>
+        </article>
+
       </div>
     </div>
   </section>
 
+  <!-- KEY FINDINGS -->
   <section class="project-section">
     <div class="container">
+
       <p class="section-label">Key Findings</p>
       <h2>What I concluded from the analysis</h2>
 
+      <!-- FINDING 01 -->
       <div class="finding">
         <div class="finding-number">Finding 01</div>
-        <h3>December 2022 revenue finished well above target</h3>
-        <p>The sales-performance view reports December revenue of approximately VND 698.1M against a VND 544.4M target, equal to 128.22% of target. Year-to-date revenue reached approximately VND 5.90B, or 105.24% of the annual target.</p>
+
+        <h3>December 2022 exceeded its revenue target</h3>
+
+        <p>
+          December revenue reached approximately VND 698.1 million
+          against a VND 544.4 million target, or 128.22%
+          attainment. Revenue for 2022 reached roughly
+          VND 5.90 billion, equal to 105.24% of the annual plan.
+          The monthly result was strong, but the year-to-date
+          comparison provides a more balanced assessment of
+          performance.
+        </p>
       </div>
 
+      <!-- FINDING 02 -->
       <div class="finding">
         <div class="finding-number">Finding 02</div>
-        <h3>Cầu Giấy was the largest district contributor in the analysis view</h3>
-        <p>The district mix chart shows Cầu Giấy contributing 33.67% of revenue, ahead of Hai Bà Trưng at 18.69% and Ba Đình at 12.52%, making district concentration an important factor in overall sales performance.</p>
+
+        <h3>
+          Revenue was concentrated in a few locations
+          and product categories
+        </h3>
+
+        <p>
+          Across the full 2020–2022 Revenue Analysis view,
+          Cầu Giấy accounted for 33.67% of revenue, followed
+          by Hai Bà Trưng at 18.69% and Ba Đình at 12.52%.
+          Household goods represented 86.01% of revenue in
+          that same view. These concentrations make
+          district-level and category-level performance
+          important to monitor.
+        </p>
       </div>
 
+      <!-- FINDING 03 -->
       <div class="finding">
         <div class="finding-number">Finding 03</div>
-        <h3>Household goods dominated the product mix</h3>
-        <p>The product-category view shows household goods contributing 86.01% of revenue, indicating that overall performance was highly concentrated in one major category and should be interpreted alongside product-level and promotion analysis.</p>
+
+        <h3>
+          RFM highlights customer retention as an area
+          for investigation
+        </h3>
+
+        <p>
+          In the displayed Customer Analysis view, the At Risk
+          group represents approximately 77% of customers.
+          This suggests an opportunity to examine purchase
+          recency and re-engagement patterns; the segment
+          score thresholds should be validated before using
+          the classification for campaigns.
+        </p>
       </div>
+
     </div>
   </section>
 
+  <!-- BUSINESS VALUE & OUTCOMES -->
   <section class="project-section">
     <div class="container">
+
       <div class="two-col">
+
         <div class="info-card">
           <p class="section-label">Business Value</p>
+
           <h2>How the dashboard supports decisions</h2>
-          <p>The report gives managers one place to compare actual results with targets, identify high- and low-performing locations, understand product concentration, and drill into manager or product-level growth. The interactive filters also make the same dashboard useful for both periodic performance reviews and targeted follow-up analysis.</p>
+
+          <p>
+            Management can compare sales performance against plan,
+            identify high-contributing stores and categories,
+            explore customer segments, and investigate order
+            activity without switching between separate spreadsheets.
+            Slicers and drilldowns make it easier to move from
+            company-level KPIs to a specific operational question.
+          </p>
         </div>
+
         <div class="outcome-box">
           <p class="section-label">Outcome / Achievement</p>
+
           <h2>What the project produced</h2>
-          <p>Created a multi-page Power BI sales analytics report covering executive KPIs, revenue trends, target attainment, manager and district performance, store-level results, product mix, and year-over-year growth — turning transaction-level retail data into a portfolio-ready business intelligence project.</p>
+
+          <p>
+            A four-page, interactive Power BI report integrating
+            revenue analysis, target attainment, RFM customer
+            segmentation, and order analysis. The project
+            demonstrates data modeling, DAX development,
+            financial KPI design, and the communication of
+            business results through dashboard storytelling.
+          </p>
         </div>
+
       </div>
     </div>
   </section>
 
+  <!-- INTERACTIVE DASHBOARD -->
   <section class="project-section">
     <div class="container">
+
       <p class="section-label">Interactive Dashboard</p>
       <h2>Explore the live Power BI report</h2>
-      <p>Use the embedded report to filter the analysis by month, year, loyalty group, product category, and promotion and inspect the underlying performance views interactively.</p>
+
+      <p>
+        Use the embedded report to navigate between Revenue
+        Analysis, Sales Performance, Customer Analysis, and Order
+        Analysis. Explore the available slicers and bookmark
+        controls to examine differences by year, month,
+        customer segment, location, and product category.
+      </p>
+
       <div class="powerbi-wrap">
-        <iframe title="KPIM Retail Sales Performance Analytics" src="https://app.powerbi.com/view?r=eyJrIjoiNDVjYjY5NTktNjg5Yy00NGNmLTk1NjQtOWY5MjkxY2RhNjQ3IiwidCI6IjQxYWI0MmE5LTM4MWItNDhjZi04YTg1LTcyMDQ2NDkyMjk3NiIsImMiOjEwfQ%3D%3D" allowfullscreen="true"></iframe>
+        <iframe
+          title="KPIM Retail Sales Performance Analytics"
+          src="https://app.powerbi.com/view?r=eyJrIjoiNDVjYjY5NTktNjg5Yy00NGNmLTk1NjQtOWY5MjkxY2RhNjQ3IiwidCI6IjQxYWI0MmE5LTM4MWItNDhjZi04YTg1LTcyMDQ2NDkyMjk3NiIsImMiOjEwfQ%3D%3D"
+          loading="lazy"
+          allowfullscreen="true">
+        </iframe>
       </div>
+
       <div class="project-actions">
-        <a class="button button-primary" href="https://app.powerbi.com/view?r=eyJrIjoiNDVjYjY5NTktNjg5Yy00NGNmLTk1NjQtOWY5MjkxY2RhNjQ3IiwidCI6IjQxYWI0MmE5LTM4MWItNDhjZi04YTg1LTcyMDQ2NDkyMjk3NiIsImMiOjEwfQ%3D%3D" target="_blank">Open in Power BI</a>
-        <a class="button button-secondary" href="../index.html#projects">Back to Projects</a>
+        <a
+          class="button button-primary"
+          href="https://app.powerbi.com/view?r=eyJrIjoiNDVjYjY5NTktNjg5Yy00NGNmLTk1NjQtOWY5MjkxY2RhNjQ3IiwidCI6IjQxYWI0MmE5LTM4MWItNDhjZi04YTg1LTcyMDQ2NDkyMjk3NiIsImMiOjEwfQ%3D%3D"
+          target="_blank"
+          rel="noopener noreferrer">
+          Open in Power BI
+        </a>
+
+        <a
+          class="button button-secondary"
+          href="../index.html#projects">
+          Back to Projects
+        </a>
       </div>
+
     </div>
   </section>
 
+  <!-- FOOTER -->
   <footer class="footer">
-    <div class="container"><p>© 2026 Duy Nguyen · Finance &amp; Business Analytics Portfolio</p></div>
+    <div class="container">
+      <p>
+        © 2026 Duy Nguyen · Finance &amp; Business Analytics Portfolio
+      </p>
+    </div>
   </footer>
+
 </body>
 </html>
